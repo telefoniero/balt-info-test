@@ -1,20 +1,15 @@
 <script setup>
-const { reactive } = require('@vue/reactivity')
-import search from '@/api/VK/users/search'
-
-const users = reactive([])
-
-async function searchUsers(evt) {
-  const value = evt.target.value
-  search(value)
-}
+import CustomInput from '@/components/UI/CustomInput.vue'
+import UserPanel from '@/components/panels/UserPanel.vue'
+import useUsersSearch from '@/composables/use/users/search'
+import { foundUsers } from '@/state/users'
 </script>
 
 <template>
-  <input type="text" class="input" @input="searchUsers" />
+  <CustomInput type="text" class="input" @input="useUsersSearch" />
   <ul>
-    <li v-for="user in users" :key="user">
-      <button type="button">user</button>
+    <li v-for="user in foundUsers" :key="user.id">
+      <UserPanel :user="user" />
     </li>
   </ul>
 </template>

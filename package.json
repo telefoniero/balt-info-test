@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "proxy": "lcp --proxyUrl http://api.vk.com/method"
   },
   "dependencies": {
     "core-js": "^3.8.3",
