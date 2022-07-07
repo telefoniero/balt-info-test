@@ -1,0 +1,14 @@
+.page {
+  width: 50%;
+  margin: 0 auto;
+  padding: 5% 0;
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1em;
+  }
+  &__link {
+    color: $mainColor;
+  }
+}

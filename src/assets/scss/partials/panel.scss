@@ -1,0 +1,11 @@
+.panel {
+  box-shadow: 0 0 0.5em $mainColor;
+  border-radius: 0.3em;
+  transition: 0.5s;
+  cursor: pointer;
+  &._active {
+    background-color: $mainColor;
+    box-shadow: none;
+    color: #fff;
+  }
+}
