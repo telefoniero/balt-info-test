@@ -1,4 +1,4 @@
-import { listedUsers } from '@/state/users'
+import { listedUsers } from '@/state'
 import { computed } from 'vue'
 
 export default function (id) {

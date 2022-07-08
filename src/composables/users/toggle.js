@@ -1,5 +1,6 @@
-import { listedUsers } from '@/state/users'
+import { listedUsers } from '@/state'
 
 export default function (id) {
-  listedUsers.has(id) ? listedUsers.delete(id) : listedUsers.add(id)
+  if (listedUsers.has(id)) listedUsers.delete(id)
+  else listedUsers.add(id)
 }

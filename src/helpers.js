@@ -1,4 +1,4 @@
-function delay(f, ms) {
+function timeout(f, ms) {
   let timer = null
   return function () {
     clearTimeout(timer)
@@ -6,4 +6,10 @@ function delay(f, ms) {
   }
 }
 
-export { delay }
+function arrayIntersection(...arrays) {
+  return arrays.reduce((intersection, iterable) =>
+    intersection.filter(a => iterable.includes(a))
+  )
+}
+
+export { timeout, arrayIntersection }

@@ -1,13 +1,13 @@
 <script setup>
-import { foundUsers } from '@/state/users'
-import UserSearchPanel from '@/components/panels/users/SearchPanel.vue'
+import { foundUsers } from '@/state'
+import UserPanel from '@/components/panels/UserPanel.vue'
 
 </script>
 
 <template>
   <ul>
     <li v-for="user in foundUsers" :key="user.id" class="li">
-      <UserSearchPanel :user="user" />
+      <UserPanel :user="user" />
     </li>
   </ul>
 </template>

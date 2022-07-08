@@ -1,6 +1,6 @@
 import search from '@/api/VK/users/search'
-import { delay } from '@/helpers'
-import { foundUsers } from '@/state/users'
+import { timeout } from '@/helpers'
+import { foundUsers } from '@/state'
 import router from '@/router'
 
 const searchUsers = async str => {
@@ -8,4 +8,4 @@ const searchUsers = async str => {
   router.push({ path: '/', query: { search: str } })
 }
 
-export default delay(searchUsers, 500)
+export default timeout(searchUsers, 500)

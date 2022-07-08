@@ -1,6 +1,6 @@
 import getQueryString from '../getQueryString'
 
-export default async function search(q) {
+export default async function (q) {
   const queryString = getQueryString('users.search', {
     q,
     fields: 'photo_50,sex'

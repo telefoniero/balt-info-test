@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/pages/HomePage'
-import MutualFriendsPage from '@/pages/MutualFriendsPage'
+import FriendsPage from '@/pages/FriendsPage'
+import FriendPage from '@/pages/FriendPage'
 
 const routes = [
   { path: '/', component: HomePage },
-  { path: '/mutual', component: MutualFriendsPage }
+  { path: '/friends', component: FriendsPage },
+  { path: '/friends/:id', component: FriendPage }
 ]
 
 const router = createRouter({
