@@ -1,5 +1,5 @@
 <script setup>
-import Panel from '@/components/panels/Panel.vue'
+import Panel from '@/components/utils/Panel.vue'
 import LoadingView from '@/components/utils/LoadingView.vue'
 import { RouterLink } from 'vue-router'
 import useLoader from '@/composables/loader'

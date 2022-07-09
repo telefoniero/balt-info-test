@@ -1,12 +1,12 @@
 <script setup>
 import { friendsInfo } from '@/global/state'
-import UserFriendPanel from '@/components/panels/UserFriendPanel.vue'
+import UserDetail from '@/components/partials/UserDetail.vue'
 </script>
 
 <template>
   <ul class="user-list">
     <li v-for="user in friendsInfo" :key="user.id" class="user-list__item">
-      <UserFriendPanel :user="user" />
+      <UserDetail :user="user" />
     </li>
   </ul>
 </template>

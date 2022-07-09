@@ -5,7 +5,6 @@ import UserCounter from '@/components/partials/UserCounter.vue'
 
 import useUsersSearch from '@/composables/users/search'
 import { RouterLink } from 'vue-router'
-
 </script>
 
 <template>

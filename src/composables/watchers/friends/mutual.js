@@ -7,5 +7,6 @@ watch(
   async newUsers => {
     const ids = Object.keys(newUsers)
     mutualFriends.value = await getMutual(ids)
-  }
+  },
+  { immediate: true }
 )

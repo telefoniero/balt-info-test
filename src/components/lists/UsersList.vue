@@ -1,13 +1,16 @@
 <script setup>
 import { foundUsers } from '@/global/state'
-import UserSearchPanel from '@/components/panels/UserSearchPanel.vue'
+import UserCard from '@/components/partials/UserCard.vue'
 
+defineProps({
+  list: Object
+})
 </script>
 
 <template>
   <ul class="user-list">
-    <li v-for="user in foundUsers" :key="user.id" class="user-list__item">
-      <UserSearchPanel :user="user" />
+    <li v-for="user in list" :key="user.id" class="user-list__item">
+      <UserCard :user="user" />
     </li>
   </ul>
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import Panel from '@/components/panels/Panel.vue'
+import Panel from '@/components/utils/Panel.vue'
 import LoadingView from '@/components/utils/LoadingView.vue'
 import useUsersToggle from '@/composables/users/toggle'
 import useLoader from '@/composables/loader'
