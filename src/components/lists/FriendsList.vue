@@ -1,21 +1,12 @@
 <script setup>
-import FriendPanel from '@/components/panels/FriendPanel.vue'
-import { mutualFriends } from '@/state'
+import { friendsInfo } from '@/global/state'
+import UserFriendPanel from '@/components/panels/UserFriendPanel.vue'
 </script>
 
 <template>
-  <ul>
-    <li v-for="friend in mutualFriends" :key="friend.id" class="li">
-      <FriendPanel :friend="friend" />
+  <ul class="user-list">
+    <li v-for="user in friendsInfo" :key="user.id" class="user-list__item">
+      <UserFriendPanel :user="user" />
     </li>
   </ul>
 </template>
-
-<style scoped lang="scss">
-.li {
-  margin-bottom: 1em;
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-</style>

@@ -1,7 +1,9 @@
 <script setup>
-import { listedUsers } from '@/state'
+import { listedUsers } from '@/global/state'
 import { computed } from '@vue/runtime-core'
-const listedStr = computed(() => `Добавлено: ${listedUsers.size}`)
+const listedStr = computed(
+  () => `Добавлено: ${Object.keys(listedUsers).length}`
+)
 </script>
 
 <template>

@@ -1,0 +1,15 @@
+.user-info {
+  &__item {
+    margin-right: 0.8em;
+    &:last-child {
+      margin-right: 0;
+    }
+    & span {
+      display: block;
+      font-size: 0.8em;
+      &:first-child {
+        margin-bottom: 0.2em;
+      }
+    }
+  }
+}

@@ -23,7 +23,7 @@ const fullName = computed(
   <Panel
     class="user-panel"
     :class="{ _active }"
-    @mousedown="useUsersToggle(user.id)"
+    @mousedown="useUsersToggle(user)"
   >
     <LoadingView class="user-panel__image-cont" :isLoading="isLoading">
       <img

@@ -12,4 +12,18 @@ function arrayIntersection(...arrays) {
   )
 }
 
-export { timeout, arrayIntersection }
+function getAge(year, month, day) {
+  var now = new Date()
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  var dob = new Date(year, month, day)
+  var dobnow = new Date(today.getFullYear(), dob.getMonth(), dob.getDate())
+  var age
+
+  age = today.getFullYear() - dob.getFullYear()
+  if (today < dobnow) {
+    age = age - 1
+  }
+  return age
+}
+
+export { timeout, arrayIntersection, getAge }

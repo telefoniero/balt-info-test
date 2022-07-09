@@ -1,7 +1,7 @@
 import search from '@/api/VK/users/search'
 import { timeout } from '@/helpers'
-import { foundUsers } from '@/state'
-import router from '@/router'
+import { foundUsers } from '@/global/state'
+import router from '@/global/router'
 
 const searchUsers = async str => {
   foundUsers.value = await search(str)

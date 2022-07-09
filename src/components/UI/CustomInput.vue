@@ -1,12 +1,18 @@
 <script setup>
-import { watchEffect } from 'vue'
+import { watch } from 'vue'
 
 const props = defineProps({
   value: String
 })
 const emit = defineEmits(['input'])
 
-watchEffect(() => emit('input', props.value))
+watch(
+  () => props.value,
+  newValue => emit('input', newValue),
+  {
+    immediate: props.value
+  }
+)
 </script>
 
 <template>

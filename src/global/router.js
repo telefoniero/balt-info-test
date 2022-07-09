@@ -4,9 +4,9 @@ import FriendsPage from '@/pages/FriendsPage'
 import FriendPage from '@/pages/FriendPage'
 
 const routes = [
-  { path: '/', component: HomePage },
-  { path: '/friends', component: FriendsPage },
-  { path: '/friends/:id', component: FriendPage }
+  { name: 'Home', path: '/', component: HomePage },
+  { name:'Friends', path: '/friends', component: FriendsPage },
+  { name: 'Friend', path: '/friends/:id', component: FriendPage }
 ]
 
 const router = createRouter({

@@ -16,4 +16,9 @@ import { RouterView } from 'vue-router'
 ul {
   list-style: none;
 }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
 </style>

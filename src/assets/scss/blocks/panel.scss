@@ -1,8 +1,13 @@
 .panel {
-  box-shadow: 0 0 0.5em $mainColor;
+  box-shadow: 0 0 0.5em rgba($mainColor, 0.7);
   border-radius: 0.3em;
   transition: 0.5s;
   cursor: pointer;
+  padding: 0.8em;
+  &:hover {
+    box-shadow: 0 0 1em 0.35em $mainColor;
+    transform: translateY(-2%);
+  }
   &._active {
     background-color: $mainColor;
     box-shadow: none;
