@@ -1,11 +1,16 @@
 import search from '@/api/VK/users/search'
-import { timeout } from '@/helpers'
 import { foundUsers } from '@/global/state'
 import router from '@/global/router'
+import { timeout } from '@/helpers'
 
-const searchUsers = async str => {
-  foundUsers.value = await search(str)
-  router.push({ path: '/', query: { search: str } })
+export const useUsersSearch = async (str, offset = 0) => {
+  const newUsers = await search(str, offset)
+  if (offset === 0) {
+    foundUsers.value = newUsers
+    router.push({ path: '/', query: { search: str } })
+  } else {
+    foundUsers.value = [...foundUsers.value, ...newUsers]
+  }
 }
 
-export default timeout(searchUsers, 500)
+export const useUsersSearchSync = timeout(useUsersSearch, 500)

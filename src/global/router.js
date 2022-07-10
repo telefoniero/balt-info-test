@@ -6,20 +6,12 @@ import FriendPage from '@/pages/FriendPage'
 const routes = [
   { name: 'Home', path: '/', component: HomePage },
   { name: 'Friends', path: '/friends', component: FriendsPage },
-  {
-    name: 'Friend',
-    path: '/friends/:id',
-    component: FriendPage,
-    props: route => ({
-      id: route.params.id
-    })
-  }
+  { name: 'Friend', path: '/friends/:id', component: FriendPage }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_ENV),
   routes
 })
-
 
 export default router

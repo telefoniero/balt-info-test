@@ -26,4 +26,8 @@ function getAge(year, month, day) {
   return age
 }
 
-export { timeout, arrayIntersection, getAge }
+function copyFunc(func, ...args) {
+  return func.bind(this, ...args)
+}
+
+export { timeout, arrayIntersection, getAge, copyFunc }

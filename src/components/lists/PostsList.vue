@@ -4,7 +4,7 @@ import { ref, watchEffect } from 'vue'
 import getPosts from '@/composables/get/posts'
 
 const props = defineProps({
-  id: String
+  id: Number
 })
 
 const posts = ref([])

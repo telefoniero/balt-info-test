@@ -1,8 +1,9 @@
 import getQueryString from '../getQueryString'
 
-export default async function (q) {
+export default async function (q, offset = 0) {
   const queryString = getQueryString('users.search', {
     q,
+    offset,
     fields: 'photo_50'
   })
   const res = await fetch(queryString)
