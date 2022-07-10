@@ -1,0 +1,17 @@
+<script setup>
+import useScrollPagination from '@/composables/scrollPagination'
+
+const { loading } = useScrollPagination()
+
+defineProps({
+  title: String
+})
+</script>
+
+<template>
+  <div class="page">
+    {{ loading }}
+    <h2 class="page__title" v-text="title" v-if="title" />
+    <slot />
+  </div>
+</template>

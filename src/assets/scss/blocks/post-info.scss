@@ -1,0 +1,8 @@
+.post-info {
+  &__item {
+    margin-right: 1.5em;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

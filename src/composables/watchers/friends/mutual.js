@@ -4,8 +4,8 @@ import getMutual from '@/api/VK/friends/getMutual'
 
 watch(
   () => ({ ...listedUsers }),
-  async newUsers => {
-    const ids = Object.keys(newUsers)
+  async newList => {
+    const ids = Object.keys(newList)
     mutualFriends.value = await getMutual(ids)
   },
   { immediate: true }

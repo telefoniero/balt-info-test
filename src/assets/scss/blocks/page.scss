@@ -2,13 +2,22 @@
   width: 50%;
   margin: 0 auto;
   padding: 5% 0;
-  &__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1em;
-  }
+
   &__link {
     color: $mainColor;
+  }
+  &__title {
+    font-weight: normal;
+    margin-bottom: 1.5em;
+  }
+  &__subtitle {
+    font-weight: normal;
+    margin-bottom: 1em;
+  }
+  &__block {
+    margin-bottom: 3em;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }

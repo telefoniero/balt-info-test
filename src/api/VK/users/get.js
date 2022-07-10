@@ -6,8 +6,10 @@ export default async function (ids) {
     user_ids: ids.join(','),
     fields: 'bdate,sex,counters,photo_50'
   })
+
   const res = await fetch(queryString)
   const data = await res.json()
+  
   data.response.forEach(user => convertUser(user))
   return data.response
 }

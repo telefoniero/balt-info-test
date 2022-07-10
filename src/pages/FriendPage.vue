@@ -1,24 +1,21 @@
 <script setup>
-import { mutualFriends, listedUsers } from '@/global/state'
-import { computed } from '@vue/runtime-core'
+import Page from '@/pages/common/Page.vue'
+import PageBlock from '@/pages/common/PageBlock.vue'
+
 import UsersList from '@/components/lists/UsersList.vue'
 import PostsList from '@/components/lists/PostsList.vue'
-import { useRoute } from 'vue-router'
+import getCommonFriends from '@/composables/get/commonFriends'
 
-const id = useRoute().params.id
-
-const commonFriends = computed(() => {
-  const sources = mutualFriends.value.find(f => f.id === +id).sources
-  const friends = sources.map(id => listedUsers[id])
-  return friends
-})
+const { id, commonFriends } = getCommonFriends()
 </script>
 
 <template>
-  <div class="page">
-    <h3 class="page__subtitle">В друзьях у :</h3>
-    <UsersList :list="commonFriends" />
-    <h3 class="page__subtitle">Посты:</h3>
-    <PostsList :id="id" />
-  </div>
+  <Page title="Информация">
+    <PageBlock subtitle="В друзьях у:">
+      <UsersList :list="commonFriends" />
+    </PageBlock>
+    <PageBlock subtitle="Посты">
+      <PostsList :id="id" />
+    </PageBlock>
+  </Page>
 </template>
