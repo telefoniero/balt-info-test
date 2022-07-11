@@ -1,17 +1,18 @@
 <script setup>
 import { RouterLink, useRoute } from 'vue-router'
+import { computed, ref, watchEffect } from '@vue/runtime-core'
+
 import Page from '@/pages/common/Page.vue'
 import PageBlock from '@/pages/common/PageBlock.vue'
 
 import CustomInput from '@/components/UI/CustomInput.vue'
 import UsersList from '@/components/lists/UsersList.vue'
 import UserCounter from '@/components/partials/UserCounter.vue'
+import LoadingView from '@/components/utils/LoadingView.vue'
 
 import { foundUsers } from '@/global/state'
 import { useUsersSearch, useUsersSearchSync } from '@/composables/users/search'
 import useScrollPagination from '@/composables/scrollPagination'
-
-import { ref, watchEffect } from '@vue/runtime-core'
 
 const topStyles = {
   display: 'flex',
@@ -20,11 +21,16 @@ const topStyles = {
   marginBottom: '1em'
 }
 
+const step = 5
 const route = useRoute()
 const search = ref('')
-watchEffect(() => (search.value = route.query.search))
 
-useScrollPagination(useUsersSearch, 5, search)
+const { isLoading, offset } = useScrollPagination(useUsersSearch, step, search)
+
+watchEffect(() => {
+  search.value = route.query.search
+  offset.value = step
+})
 </script>
 
 <template>
@@ -43,5 +49,6 @@ useScrollPagination(useUsersSearch, 5, search)
       />
       <UsersList :list="foundUsers" />
     </PageBlock>
+    <LoadingView :isLoading="isLoading" />
   </Page>
 </template>

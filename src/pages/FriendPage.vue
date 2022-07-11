@@ -3,22 +3,27 @@ import { ref } from 'vue'
 import Page from '@/pages/common/Page.vue'
 import PageBlock from '@/pages/common/PageBlock.vue'
 
-import UsersList from '@/components/lists/UsersList.vue'
+import UserPanel from '@/components/partials/UserPanel.vue'
 import PostsList from '@/components/lists/PostsList.vue'
-import getCommonFriends from '@/composables/get/commonFriends'
-import useScrollPagination from '@/composables/scrollPagination'
+import LoadingView from '@/components/utils/LoadingView.vue'
 
-import getPosts from '@/composables/get/posts'
+import getCommonFriends from '@/composables/get/commonFriends'
 
 const { id, commonFriends } = getCommonFriends()
-
-useScrollPagination(getPosts, 5, ref(id))
 </script>
 
 <template>
   <Page title="Информация">
     <PageBlock subtitle="В друзьях у:">
-      <UsersList :list="commonFriends" />
+      <ul class="user-list">
+        <li
+          v-for="user in commonFriends"
+          :key="user.id"
+          class="user-list__item"
+        >
+          <UserPanel :user="user" />
+        </li>
+      </ul>
     </PageBlock>
     <PageBlock subtitle="Посты">
       <PostsList :id="id" />

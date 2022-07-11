@@ -9,7 +9,9 @@ defineProps({
 
 <template>
   <div class="loader">
-    <div class="loader__anim" v-show="isLoading"></div>
+    <div v-show="isLoading" class="loader__anim">
+      <div class="lds-dual-ring" />
+    </div>
     <slot />
   </div>
 </template>

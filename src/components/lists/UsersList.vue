@@ -1,10 +1,12 @@
 <script setup>
 import { foundUsers } from '@/global/state'
 import UserCard from '@/components/partials/UserCard.vue'
+import { provide } from '@vue/runtime-core'
 
 defineProps({
   list: Object
 })
+
 </script>
 
 <template>

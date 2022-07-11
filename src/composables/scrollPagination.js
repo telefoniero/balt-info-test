@@ -2,18 +2,25 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 const selector = '.page'
 
-export default function (callback, offsetValue, ...refs) {
+export default function (callback, step, ...args) {
   let element,
-    loading = false,
-    offset = 5
+    isLoading = ref(false),
+    offset = ref(5),
+    count = ref(0)
 
   function scrollHandler() {
-    if (loading === false) {
-      if (element.getBoundingClientRect().bottom - 30 < window.innerHeight) {
-        loading = true
-        offset += offsetValue
-        const params = [...refs].map(r => r.value)
-        callback(...params, offset).then(() => (loading = false))
+    if (isLoading.value === false) {
+      const elOffset = Math.floor(element.getBoundingClientRect().bottom)
+
+      if (elOffset <= window.innerHeight) {
+        isLoading.value = true
+        offset.value += step
+
+        const params = [...args, offset].map(arg => arg?.value ?? arg)
+        callback(...params).then(res => {
+          count.value = res.count
+          isLoading.value = false
+        })
       }
     }
   }
@@ -26,4 +33,6 @@ export default function (callback, offsetValue, ...refs) {
   onUnmounted(() => {
     window.removeEventListener('scroll', scrollHandler)
   })
+
+  return { isLoading, offset, count }
 }

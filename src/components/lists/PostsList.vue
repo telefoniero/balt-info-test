@@ -1,7 +1,10 @@
 <script setup>
-import PostCard from '@/components/partials/PostCard.vue'
 import { ref, watchEffect } from 'vue'
+import PostCard from '@/components/partials/PostCard.vue'
+import LoadingView from '@/components/utils/LoadingView.vue'
+
 import getPosts from '@/composables/get/posts'
+import useScrollPagination from '@/composables/scrollPagination'
 
 const props = defineProps({
   id: Number
@@ -10,8 +13,13 @@ const props = defineProps({
 const posts = ref([])
 
 watchEffect(async () => {
-  posts.value = await getPosts(props.id)
+  const { response, count } = await getPosts(props.id)
+  posts.value = response
 })
+
+const step = 5
+
+const { isLoading } = useScrollPagination(getPosts, step, props.id)
 </script>
 
 <template>
@@ -20,4 +28,5 @@ watchEffect(async () => {
       <PostCard :post="post" />
     </li>
   </ul>
+  <LoadingView :isLoading="isLoading" />
 </template>

@@ -8,5 +8,5 @@ export default async function (q, offset = 0) {
   })
   const res = await fetch(queryString)
   const data = await res.json()
-  return data.response.items
+  return { response: data.response.items, count: data.response.count }
 }
