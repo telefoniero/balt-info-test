@@ -1,7 +1,9 @@
 import { ref } from 'vue'
 
-export default function () {
-  const isLoading = ref(true)
+export default function (trigger) {
+  const isLoading = ref(false)
+  // hooks
+  const onBeforeLoad = () => (isLoading.value = true)
   const onLoad = () => (isLoading.value = false)
-  return { isLoading, onLoad }
+  return { isLoading, onLoad, onBeforeLoad }
 }

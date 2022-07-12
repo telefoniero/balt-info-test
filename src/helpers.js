@@ -6,6 +6,18 @@ function timeout(f, ms) {
   }
 }
 
+function timeoutAsync(f, ms) {
+  let timer = null
+  return function () {
+    clearTimeout(timer)
+    return new Promise(resolve => {
+      timer = setTimeout(() => {
+        f.apply(this, arguments).then(() => resolve())
+      }, ms)
+    })
+  }
+}
+
 function arrayIntersection(...arrays) {
   return arrays.reduce((intersection, iterable) =>
     intersection.filter(a => iterable.includes(a))
@@ -30,4 +42,4 @@ function copyFunc(func, ...args) {
   return func.bind(this, ...args)
 }
 
-export { timeout, arrayIntersection, getAge, copyFunc }
+export { timeout, arrayIntersection, getAge, copyFunc, timeoutAsync }

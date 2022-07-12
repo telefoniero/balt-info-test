@@ -24,10 +24,11 @@ function mergeCount(array) {
 }
 
 export default function (response) {
-  const result = response.map(r =>
+  const filtered = response.map(r => r.response).flat()
+  const result = filtered.map(f =>
     mergeCount(
-      r.response.map(r =>
-        r.common_friends.map(id => ({ id, sources: [r.id], count: 1 }))
+      f.map(f =>
+        f.common_friends.map(id => ({ id, sources: [f.id], count: 1 }))
       )
     )
   )

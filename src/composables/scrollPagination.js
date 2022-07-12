@@ -2,9 +2,9 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 const selector = '.page'
 
-export default function (callback, step, ...args) {
-  let element,
-    isLoading = ref(false),
+export default function (callback, controls, ...args) {
+  let element
+  const { isLoading, step } = controls,
     offset = ref(5),
     count = ref(0)
 
@@ -34,5 +34,5 @@ export default function (callback, step, ...args) {
     window.removeEventListener('scroll', scrollHandler)
   })
 
-  return { isLoading, offset, count }
+  return { offset, count }
 }

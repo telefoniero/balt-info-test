@@ -1,33 +1,32 @@
-import getQueryString from '../getQueryString'
+import getQueryString from '@/api/VK/getQueryString'
+import collectIds from '@/api/VK/collectIds'
 import convertMutuals from '@/api/VK/converters/mutuals'
 
 export default async function getMutual(ids) {
-  const preparedIds = [[]]
+  const requests = []
+  const idCollections = collectIds(ids)
 
-  ids.forEach(id => {
-    const lastArray = preparedIds[preparedIds.length - 1]
-    if (lastArray.length < 25) lastArray.push(`'${id}'`)
-    else preparedIds.push(`'${id}'`)
+  const executableQueries = idCollections.map(coll => {
+    const VKquery = coll
+      .map((id, index, array) => {
+        const targets = array.slice(index + 1).join(',')
+        return `API.friends.getMutual({"source_uid":${id},"target_uids": "${targets}"})`
+      })
+      .slice(0, -1)
+      .toString()
+    return `return [${VKquery}];`
   })
 
-  console.log(preparedIds)
+  executableQueries.forEach(query => {
+    const queryString = getQueryString('execute', {
+      code: query
+    })
 
-  // ids.forEach((id, index) => {
-  //   const target_uids = ids.slice(index + 1).join(',')
-  //   if (target_uids.length) {
-  //     const queryString = getQueryString('friends.getMutual', {
-  //       source_uid: id,
-  //       target_uids
-  //     })
+    const request = fetch(queryString).then(res => res.json())
+    requests.push(request)
+  })
 
-  //     const request = fetch(queryString).then(res => res.json())
-
-  //     requests.push(request)
-  //     urls.push(queryString)
-  //   }
-  // })
-
-  // const response = convertMutuals(await Promise.all(requests))
-
-  return []
+  const response = await Promise.all(requests)
+  const result = convertMutuals(response)
+  return result
 }
