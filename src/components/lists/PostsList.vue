@@ -1,32 +1,34 @@
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import PostCard from '@/components/partials/PostCard.vue'
 import LoadingView from '@/components/utils/LoadingView.vue'
 
+import { friendPosts } from '@/global/state'
+
 import getPosts from '@/composables/get/posts'
 import useScrollPagination from '@/composables/scrollPagination'
+import useLoader from '@/composables/loader'
 
 const props = defineProps({
   id: Number
 })
 
-const posts = ref([])
+const { isLoading, onLoad, onBeforeLoad } = useLoader()
+onMounted(onBeforeLoad)
 
-watchEffect(async () => {
-  const { response, count } = await getPosts(props.id)
-  posts.value = response
+const { count } = useScrollPagination(getPosts, isLoading, props.id)
+
+onMounted(async () => {
+  count.value = (await getPosts(props.id)).count
+  onLoad()
 })
-
-const step = 5
-
-const { isLoading } = useScrollPagination(getPosts, step, props.id)
 </script>
 
 <template>
   <ul class="posts-list">
-    <li v-for="post in posts" :key="post.id" class="posts-list__item">
+    <li v-for="post in friendPosts" :key="post.id" class="posts-list__item">
       <PostCard :post="post" />
     </li>
   </ul>
-  <LoadingView :isLoading="isLoading" />
+  <LoadingView style="margin-top: 2em" :isLoading="isLoading" />
 </template>

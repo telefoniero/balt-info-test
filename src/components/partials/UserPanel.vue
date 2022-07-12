@@ -9,10 +9,6 @@ const { isLoading, onLoad } = useLoader()
 const props = defineProps({
   user: Object
 })
-
-const fullName = computed(
-  () => `${props.user.first_name} ${props.user.last_name}`
-)
 </script>
 
 <template>
@@ -20,12 +16,12 @@ const fullName = computed(
     <LoadingView class="user-panel__image-cont" :isLoading="isLoading">
       <img
         :src="user.photo_50"
-        :alt="`${fullName} - Аватар`"
+        :alt="`${user.fullName} - Аватар`"
         :onload="onLoad"
       />
     </LoadingView>
     <div class="user-panel__data">
-      <span class="user-panel__name">{{ fullName }}</span>
+      <span class="user-panel__name">{{ user.fullName }}</span>
       <slot />
     </div>
   </Panel>

@@ -27,6 +27,9 @@ export default function (post) {
         case 'audio':
           const audio = `🎵 ${a.audio.artist} — ${a.audio.title}`
           return { type: 'audio', item: audio }
+
+        default:
+          return a
       }
     })
   }

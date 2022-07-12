@@ -1,10 +1,11 @@
 <script setup>
-import { watch } from 'vue'
+import { onMounted, watch } from 'vue'
 
 const props = defineProps({
   value: String
 })
 const emit = defineEmits(['input'])
+// const input = ref(null)
 // watch(
 //   () => props.value,
 //   newValue => emit('input', newValue),

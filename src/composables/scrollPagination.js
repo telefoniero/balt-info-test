@@ -1,25 +1,27 @@
-import { onMounted, onUnmounted, ref } from 'vue'
+import { fromRefs } from '@/helpers'
+import { onMounted, onUnmounted, ref, isRef } from 'vue'
 
 const selector = '.page'
 
-export default function (callback, controls, ...args) {
+export default function (callback, loading, ...args) {
   let element
-  const { isLoading, step } = controls,
-    offset = ref(5),
-    count = ref(0)
+  const step = 5
+  const count = ref(0)
+  const offset = ref(step)
 
   function scrollHandler() {
-    if (isLoading.value === false) {
+    if (loading.value === false && count.value > step) {
       const elOffset = Math.floor(element.getBoundingClientRect().bottom)
 
       if (elOffset <= window.innerHeight) {
-        isLoading.value = true
+        loading.value = true
         offset.value += step
 
-        const params = [...args, offset].map(arg => arg?.value ?? arg)
+        const params = fromRefs(...args, offset)
+
         callback(...params).then(res => {
           count.value = res.count
-          isLoading.value = false
+          loading.value = false
         })
       }
     }
@@ -34,5 +36,5 @@ export default function (callback, controls, ...args) {
     window.removeEventListener('scroll', scrollHandler)
   })
 
-  return { offset, count }
+  return { offset, count, step }
 }

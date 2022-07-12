@@ -17,10 +17,8 @@ export default async function getMutual(ids) {
     return `return [${VKquery}];`
   })
 
-  executableQueries.forEach(query => {
-    const queryString = getQueryString('execute', {
-      code: query
-    })
+  executableQueries.forEach(code => {
+    const queryString = getQueryString('execute', { code })
 
     const request = fetch(queryString).then(res => res.json())
     requests.push(request)

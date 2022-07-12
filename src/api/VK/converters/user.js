@@ -14,6 +14,10 @@ export default function (user) {
     user.age = age
   }
 
+  if ('first_name' in user && 'last_name' in user) {
+    user.fullName = `${user.first_name} ${user.last_name}`
+  }
+
   if ('sex' in user) {
     user.sex = sexMap[user.sex]
   }

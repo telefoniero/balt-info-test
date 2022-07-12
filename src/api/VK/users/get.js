@@ -16,10 +16,8 @@ export default async function (ids) {
     return `return [${VKquery}];`
   })
 
-  executableQueries.forEach(query => {
-    const queryString = getQueryString('execute', {
-      code: query
-    })
+  executableQueries.forEach(code => {
+    const queryString = getQueryString('execute', { code })
 
     const request = fetch(queryString).then(res => res.json())
     requests.push(request)
@@ -28,5 +26,10 @@ export default async function (ids) {
   const response = await Promise.all(requests)
   const data = response.map(r => r.response).flat(2)
   data.forEach(user => convertUser(user))
+  data.sort((a, b) => {
+    if (a.fullName < b.fullName) return -1
+    if (a.fullName > b.fullName) return 1
+  })
+
   return data
 }

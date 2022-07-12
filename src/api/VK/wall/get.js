@@ -11,5 +11,5 @@ export default async function (id, offset) {
 
   const posts = data.response.items
   posts.forEach(post => convertPost(post))
-  return { response: posts, count: data.response.items }
+  return { response: posts, count: data.response.count }
 }

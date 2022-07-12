@@ -14,7 +14,6 @@ const topStyles = {
   justifyContent: 'space-between',
   marginBottom: '1em'
 }
-
 </script>
 
 <template>

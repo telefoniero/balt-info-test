@@ -1,3 +1,5 @@
+import { isRef } from 'vue'
+
 function timeout(f, ms) {
   let timer = null
   return function () {
@@ -12,7 +14,7 @@ function timeoutAsync(f, ms) {
     clearTimeout(timer)
     return new Promise(resolve => {
       timer = setTimeout(() => {
-        f.apply(this, arguments).then(() => resolve())
+        f.apply(this, arguments).then(res => resolve(res))
       }, ms)
     })
   }
@@ -42,4 +44,8 @@ function copyFunc(func, ...args) {
   return func.bind(this, ...args)
 }
 
-export { timeout, arrayIntersection, getAge, copyFunc, timeoutAsync }
+function fromRefs(...args) {
+  return args.map(a => (isRef(a) ? a.value : a))
+}
+
+export { timeout, arrayIntersection, getAge, copyFunc, timeoutAsync, fromRefs }

@@ -25,7 +25,7 @@ const { id, commonFriends } = getCommonFriends()
         </li>
       </ul>
     </PageBlock>
-    <PageBlock subtitle="Посты">
+    <PageBlock subtitle="Посты (переход по клику на пост)">
       <PostsList :id="id" />
     </PageBlock>
   </Page>
