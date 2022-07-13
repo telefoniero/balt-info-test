@@ -24,7 +24,12 @@ function mergeCount(array) {
 }
 
 export default function (response) {
-  const filtered = response.map(r => r.response).flat()
+  const filtered = response
+    .map(r => r.response)
+    .flat()
+    .filter(f => !!f)
+  if (!filtered.length) return []
+
   const result = filtered.map(f =>
     mergeCount(
       f.map(f =>

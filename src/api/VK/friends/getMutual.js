@@ -4,15 +4,15 @@ import convertMutuals from '@/api/VK/converters/mutuals'
 
 export default async function getMutual(ids) {
   const requests = []
+  if (ids.length === 1) return []
   const idCollections = collectIds(ids)
 
   const executableQueries = idCollections.map(coll => {
     const VKquery = coll
-      .map((id, index, array) => {
-        const targets = array.slice(index + 1).join(',')
+      .map(id => {
+        const targets = coll.filter(i => i !== id).join(',')
         return `API.friends.getMutual({"source_uid":${id},"target_uids": "${targets}"})`
       })
-      .slice(0, -1)
       .toString()
     return `return [${VKquery}];`
   })
@@ -26,5 +26,6 @@ export default async function getMutual(ids) {
 
   const response = await Promise.all(requests)
   const result = convertMutuals(response)
+  console.log(result)
   return result
 }
