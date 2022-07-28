@@ -5,8 +5,22 @@ import FriendPage from '@/pages/FriendPage'
 
 const routes = [
   { name: 'Home', path: '/', component: HomePage },
-  { name: 'Friends', path: '/friends', component: FriendsPage },
-  { name: 'Friend', path: '/friends/:id', component: FriendPage }
+  {
+    name: 'Friends',
+    path: '/friends',
+    component: FriendsPage,
+    beforeEnter: (to, from) => {
+      if (from.name !== 'Home') return { name: 'Home' }
+    }
+  },
+  {
+    name: 'Friend',
+    path: '/friends/:id',
+    component: FriendPage,
+    beforeEnter: (to, from) => {
+      if (from.name !== 'Friends') return { name: 'Home' }
+    }
+  }
 ]
 
 const router = createRouter({
