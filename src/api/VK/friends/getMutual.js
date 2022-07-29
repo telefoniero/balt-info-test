@@ -26,6 +26,5 @@ export default async function getMutual(ids) {
 
   const response = await Promise.all(requests)
   const result = convertMutuals(response)
-  console.log(result)
   return result
 }
