@@ -9,7 +9,6 @@
     "proxy": "lcp --proxyUrl http://api.vk.com/method",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://balt-info-test.vercel.app/",
   "dependencies": {
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
