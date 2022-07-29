@@ -1,6 +1,7 @@
 <script setup>
 import UserDetail from '@/components/partials/UserDetail.vue'
 import LoadingView from '@/components/utils/LoadingView.vue'
+import { RouterLink } from 'vue-router'
 
 import { friendsInfo } from '@/global/state'
 import router from '@/global/router'
@@ -13,6 +14,11 @@ import { isLoading } from '@/composables/watch/friends'
       <UserDetail :user="user" />
     </li>
   </ul>
-  <h3 v-else-if="!isLoading">У выбранных пользователей нет общих друзей!</h3>
+  <template v-else-if="!isLoading">
+    <h3 style="margin-bottom: 1em">
+      У выбранных пользователей нет общих друзей!
+    </h3>
+    <RouterLink class="link" to="/">Назад</RouterLink>
+  </template>
   <LoadingView :isLoading="isLoading" />
 </template>

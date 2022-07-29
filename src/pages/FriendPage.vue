@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import Page from '@/pages/common/Page.vue'
 import PageBlock from '@/pages/common/PageBlock.vue'
+import { RouterLink } from 'vue-router'
 
 import UserPanel from '@/components/partials/UserPanel.vue'
 import PostsList from '@/components/lists/PostsList.vue'
@@ -28,5 +29,6 @@ const { id, commonFriends } = getCommonFriends()
     <PageBlock subtitle="Посты (переход по клику на пост)">
       <PostsList :id="id" />
     </PageBlock>
+    <RouterLink to="friends" class="link">К списку друзей</RouterLink>
   </Page>
 </template>
