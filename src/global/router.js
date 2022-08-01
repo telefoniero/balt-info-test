@@ -10,7 +10,8 @@ const routes = [
     path: '/friends',
     component: FriendsPage,
     beforeEnter: (to, from) => {
-      if (from.name !== 'Home') return { name: 'Home' }
+      if (from.name !== 'Home' && from.name !== 'Friend')
+        return { name: 'Home' }
     }
   },
   {
