@@ -29,6 +29,6 @@ const { id, commonFriends } = getCommonFriends()
     <PageBlock subtitle="Посты (переход по клику на пост)">
       <PostsList :id="id" />
     </PageBlock>
-    <RouterLink to="friends" class="link">К списку друзей</RouterLink>
+    <RouterLink to="/friends" class="link">К списку друзей</RouterLink>
   </Page>
 </template>

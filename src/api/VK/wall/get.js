@@ -8,6 +8,9 @@ export default async function (id, offset) {
   })
   const res = await fetch(queryString)
   const data = await res.json()
+  if (!('response' in data)) {
+    return { response: [], count: 0 }
+  }
 
   const posts = data.response.items
   posts.forEach(post => convertPost(post))

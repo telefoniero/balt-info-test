@@ -31,10 +31,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <ul class="posts-list">
+  <ul class="posts-list" v-show="friendPosts.length">
     <li v-for="post in friendPosts" :key="post.id" class="posts-list__item">
       <PostCard :post="post" />
     </li>
   </ul>
+  <h3 v-if="!friendPosts.length && !isLoading">
+    У выбранного пользователя нет постов, или его профиль закрыт!
+  </h3>
   <LoadingView style="margin-top: 2em" :isLoading="isLoading" />
 </template>

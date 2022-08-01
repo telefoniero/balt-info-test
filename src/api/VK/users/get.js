@@ -24,7 +24,11 @@ export default async function (ids) {
   })
 
   const response = await Promise.all(requests)
-  const data = response.map(r => r.response).flat(2)
+  const data = response
+    .map(r => r.response)
+    .flat(2)
+    .filter(r => !!r)
+
   data.forEach(user => convertUser(user))
   data.sort((a, b) => {
     if (a.fullName < b.fullName) return -1

@@ -1,7 +1,8 @@
-import updateMutualFriends from '@/composables/update/friends/mutual'
+// import updateMutualFriends from '@/composables/update/friends/mutual'
+import updateAllFriends from '@/composables/update/friends/all'
 import updateFriendsInfo from '@/composables/update/friends/info'
 import useLoader from '@/composables/loader'
-import { listedUsers, mutualFriends } from '@/global/state'
+import { allFriends, listedUsers } from '@/global/state'
 import { watch } from 'vue'
 
 const { isLoading, onBeforeLoad, onLoad } = useLoader()
@@ -11,13 +12,18 @@ watch(
   newList => {
     onBeforeLoad()
     const ids = Object.keys(newList)
-    updateMutualFriends(ids)
+    updateAllFriends(ids)
   }
 )
 
-watch(mutualFriends, newList => {
+watch(allFriends, newList => {
   const ids = newList.map(friend => friend.id)
   updateFriendsInfo(ids).then(() => onLoad())
 })
+
+// watch(mutualFriends, newList => {
+//   const ids = newList.map(friend => friend.id)
+//   updateFriendsInfo(ids).then(() => onLoad())
+// })
 
 export { isLoading }

@@ -16,7 +16,7 @@ import { isLoading } from '@/composables/watch/friends'
   </ul>
   <template v-else-if="!isLoading">
     <h3 style="margin-bottom: 1em">
-      У выбранных пользователей нет общих друзей!
+      У выбранных пользователей нет друзей, или их профили закрыты!
     </h3>
     <RouterLink class="link" to="/">Назад</RouterLink>
   </template>

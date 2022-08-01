@@ -1,5 +1,7 @@
 <script setup>
 import { RouterView } from 'vue-router'
+// import getAll from '@/api/VK/friends/getAll'
+// getAll()
 </script>
 
 <template>

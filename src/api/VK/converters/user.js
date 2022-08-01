@@ -1,6 +1,6 @@
 import { getAge } from '@/helpers'
 
-export default function (user) {
+export default function convertUser(user) {
   const sexMap = {
     0: 'Не указан',
     1: 'Женский',
