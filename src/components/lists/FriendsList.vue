@@ -13,6 +13,7 @@ import useScrollPagination from '@/composables/scrollPagination'
 const { count, offset, step } = useScrollPagination(getFriendsInfo, isLoading)
 
 onMounted(async () => {
+  onBeforeLoad()
   offset.value = step
   count.value = (await getFriendsInfo()).count
   onLoad()
@@ -20,6 +21,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <!-- {{ friendsInfo.length }} -->
   <ul class="user-list" v-if="friendsInfo.length">
     <li v-for="user in friendsInfo" :key="user.id" class="user-list__item">
       <UserDetail :user="user" />
