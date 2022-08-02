@@ -4,7 +4,7 @@ import convertAllFriends from '../converters/allFriends'
 
 export default async function getAll(ids) {
   const requests = []
-  if (ids.length === 1) return []
+  if (ids.length <= 1) return []
   const idCollections = collectIds(ids)
 
   const executableQueries = idCollections.map(coll => {
@@ -32,6 +32,7 @@ export default async function getAll(ids) {
   })
 
   const response = await Promise.all(requests)
+  console.log(response)
   const result = convertAllFriends(response)
   return result
 }
