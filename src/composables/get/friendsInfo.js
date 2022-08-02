@@ -7,5 +7,6 @@ export default async (offset = 0) => {
     .map(friend => friend.id)
   const newInfo = await get(ids)
   friendsInfo.value = [...friendsInfo.value, ...newInfo]
+  friendsInfo.value.sort((a, b) => (a.fullName > b.fullName ? 1 : -1))
   return { count: allFriends.value.length }
 }

@@ -16,7 +16,7 @@ export default function convertAllFriends(response) {
     // search in curr friends object
     Object.keys(prev).forEach(id => {
       if (id in curr) {
-        curr[id].count += 1
+        curr[id].count += prev[id].count
         curr[id].sources = [...prev[id].sources, curr[id].sources]
       }
     })
