@@ -32,7 +32,6 @@ export default async function getAll(ids) {
   })
 
   const response = await Promise.all(requests)
-  console.log(response)
   const result = convertAllFriends(response)
   return result
 }

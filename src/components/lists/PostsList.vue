@@ -14,7 +14,6 @@ const props = defineProps({
 })
 
 const { isLoading, onLoad, onBeforeLoad } = useLoader()
-onMounted(onBeforeLoad)
 
 const { count, offset, step } = useScrollPagination(
   getPosts,
@@ -23,6 +22,7 @@ const { count, offset, step } = useScrollPagination(
 )
 
 onMounted(async () => {
+  onBeforeLoad()
   friendPosts.value = []
   offset.value = step
   count.value = (await getPosts(props.id)).count

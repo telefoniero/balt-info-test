@@ -23,7 +23,5 @@ export default function convertAllFriends(response) {
     return curr
   })
 
-  console.log(reduced)
-
   return Object.values(reduced)
 }

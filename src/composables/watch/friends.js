@@ -17,8 +17,8 @@ watch(
 )
 
 watch(allFriends, newList => {
-  const ids = newList.map(friend => friend.id)
-  updateFriendsInfo(ids).then(() => onLoad())
+  const ids = newList.map(friend => friend.id).slice(0, 10)
+  updateFriendsInfo(ids)
 })
 
 // watch(mutualFriends, newList => {
@@ -26,4 +26,4 @@ watch(allFriends, newList => {
 //   updateFriendsInfo(ids).then(() => onLoad())
 // })
 
-export { isLoading }
+export { isLoading, onBeforeLoad, onLoad }

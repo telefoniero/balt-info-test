@@ -1,5 +1,5 @@
 import { fromRefs } from '@/helpers'
-import { onMounted, onUnmounted, ref, isRef } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 const selector = '.page'
 
@@ -16,7 +16,6 @@ export default function (callback, loading, ...args) {
       if (elOffset <= window.innerHeight) {
         loading.value = true
         offset.value += step
-
         const params = fromRefs(...args, offset)
 
         callback(...params).then(res => {

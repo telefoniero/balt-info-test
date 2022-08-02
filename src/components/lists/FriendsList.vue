@@ -2,14 +2,25 @@
 import UserDetail from '@/components/partials/UserDetail.vue'
 import LoadingView from '@/components/utils/LoadingView.vue'
 import { RouterLink } from 'vue-router'
+import { computed, onMounted } from 'vue'
 
 import { friendsInfo } from '@/global/state'
 import router from '@/global/router'
-import { isLoading } from '@/composables/watch/friends'
+import { isLoading, onBeforeLoad, onLoad } from '@/composables/watch/friends'
+import getFriendsInfo from '@/composables/get/friendsInfo'
+import useScrollPagination from '@/composables/scrollPagination'
+
+const { count, offset, step } = useScrollPagination(getFriendsInfo, isLoading)
+
+onMounted(async () => {
+  offset.value = step
+  count.value = (await getFriendsInfo()).count
+  onLoad()
+})
 </script>
 
 <template>
-  <ul class="user-list" v-if="friendsInfo.length && !isLoading">
+  <ul class="user-list" v-if="friendsInfo.length">
     <li v-for="user in friendsInfo" :key="user.id" class="user-list__item">
       <UserDetail :user="user" />
     </li>
@@ -20,5 +31,5 @@ import { isLoading } from '@/composables/watch/friends'
     </h3>
     <RouterLink class="link" to="/">Назад</RouterLink>
   </template>
-  <LoadingView :isLoading="isLoading" />
+  <LoadingView style="margin-top: 1em" :isLoading="isLoading" />
 </template>
