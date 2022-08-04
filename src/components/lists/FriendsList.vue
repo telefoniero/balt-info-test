@@ -2,27 +2,37 @@
 import UserDetail from '@/components/partials/UserDetail.vue'
 import LoadingView from '@/components/utils/LoadingView.vue'
 import { RouterLink } from 'vue-router'
-import { onMounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 
 import { friendsInfo } from '@/global/state'
-import { isLoading, onBeforeLoad, onLoad } from '@/composables/watch/friends'
-import getFriendsInfo from '@/composables/get/friendsInfo'
+import { isLoading } from '@/composables/watch/friends'
 import useScrollPagination from '@/composables/scrollPagination'
+import { timeoutAsync } from '@/helpers'
 
-const { count, offset, step } = useScrollPagination(getFriendsInfo, isLoading)
+const { count, offset, step } = useScrollPagination(
+  timeoutAsync(async () => ({ count: friendsInfo.value.length }), 1000),
+  isLoading
+)
+
+watch(friendsInfo, newInfo => (count.value = newInfo.length))
 
 onMounted(async () => {
-  onBeforeLoad()
   offset.value = step
   friendsInfo.value = []
-  count.value = (await getFriendsInfo()).count
-  onLoad()
 })
+
+const paginatedFriendsInfo = computed(() =>
+  friendsInfo.value.slice(0, offset.value)
+)
 </script>
 
 <template>
   <ul class="user-list" v-if="friendsInfo.length">
-    <li v-for="user in friendsInfo" :key="user.id" class="user-list__item">
+    <li
+      v-for="user in paginatedFriendsInfo"
+      :key="user.id"
+      class="user-list__item"
+    >
       <UserDetail :user="user" />
     </li>
   </ul>

@@ -3,7 +3,6 @@ import getQueryString from '@/api/VK/getQueryString'
 import collectIds from '../collectIds'
 
 export default async function (ids) {
-  const requests = []
   const idCollections = collectIds(ids)
 
   const executableQueries = idCollections.map(coll => {
@@ -16,15 +15,26 @@ export default async function (ids) {
     return `return [${VKquery}];`
   })
 
-  executableQueries.forEach(code => {
+  const results = []
+  let iteratee = []
+
+  for (const code of executableQueries) {
     const queryString = getQueryString('execute', { code })
 
     const request = fetch(queryString).then(res => res.json())
-    requests.push(request)
-  })
+    iteratee.push(request)
 
-  const response = await Promise.all(requests)
-  const data = response
+    if (
+      iteratee.length === 2 ||
+      executableQueries.indexOf(code) == executableQueries.length - 1
+    ) {
+      results.push(await Promise.all(iteratee))
+      iteratee = []
+    }
+  }
+
+  const resolvedResults = (await Promise.all(results)).flat()
+  const data = resolvedResults
     .map(r => r.response)
     .flat(2)
     .filter(r => !!r)
