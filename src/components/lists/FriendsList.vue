@@ -5,11 +5,12 @@ import { RouterLink } from 'vue-router'
 import { computed, onMounted, watch } from 'vue'
 
 import { friendsInfo } from '@/global/state'
-import { isLoading } from '@/composables/watch/friends'
+import { isLoading, onBeforeLoad, onLoad } from '@/composables/watch/friends'
 import useScrollPagination from '@/composables/scrollPagination'
 import { timeoutAsync } from '@/helpers'
 
-const { count, offset, step } = useScrollPagination(
+const { count, offset, step, load } = useScrollPagination(
+  friendsInfo,
   timeoutAsync(async () => ({ count: friendsInfo.value.length }), 1000),
   isLoading
 )
@@ -17,8 +18,8 @@ const { count, offset, step } = useScrollPagination(
 watch(friendsInfo, newInfo => (count.value = newInfo.length))
 
 onMounted(async () => {
-  offset.value = step
-  friendsInfo.value = []
+  if (!friendsInfo.value.length) offset.value = step
+  else load()
 })
 
 const paginatedFriendsInfo = computed(() =>
@@ -40,7 +41,7 @@ const paginatedFriendsInfo = computed(() =>
     <h3 style="margin-bottom: 1em">
       У выбранных пользователей нет друзей, или их профили закрыты!
     </h3>
-    <RouterLink class="link" to="/">Назад</RouterLink>
+    <a class="link" @click="$router.back()">Назад</a>
   </template>
   <LoadingView style="margin-top: 1em" :isLoading="isLoading" />
 </template>

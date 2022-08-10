@@ -18,7 +18,7 @@ watch(
 
 watch(allFriends, newList => {
   const ids = newList.map(friend => friend.id)
-  updateFriendsInfo(ids).then(() => onLoad())
+  updateFriendsInfo(ids)
 })
 
 export { isLoading, onBeforeLoad, onLoad }

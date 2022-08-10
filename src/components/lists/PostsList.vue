@@ -16,6 +16,7 @@ const props = defineProps({
 const { isLoading, onLoad, onBeforeLoad } = useLoader()
 
 const { count, offset, step } = useScrollPagination(
+  friendPosts,
   getPosts,
   isLoading,
   props.id
